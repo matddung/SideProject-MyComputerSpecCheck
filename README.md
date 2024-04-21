@@ -12,6 +12,5 @@
 > Runtime.exec() 메소드를 사용하여 운영 체제의 명령어를 실행하고, 그 결과를 가져올 수 있다.
 *****
 ## Version Rules
-> spring framework boot version : 3.0.6
 >
 > java version : 17.0.9  
