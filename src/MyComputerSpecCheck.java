@@ -13,7 +13,7 @@ public class MyComputerSpecCheck implements Runnable {
     public void run() {
         JFrame frame = new JFrame("내 사양 확인");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 413);
+        frame.setSize(700, 700);
 
         JButton button = new JButton("사양 확인");
         String[] columnNames = {"항목", "정보"};
@@ -26,7 +26,7 @@ public class MyComputerSpecCheck implements Runnable {
         };
 
         JTable table = new JTable(data, columnNames);
-        table.setRowHeight(65);
+        table.setRowHeight(100);
         JScrollPane scrollPane = new JScrollPane(table);
 
         button.addActionListener(new ActionListener() {
