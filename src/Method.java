@@ -35,11 +35,11 @@ public class Method {
                 String line;
                 Process process = Runtime.getRuntime().exec("system_profiler SPDisplaysDataType");
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                boolean isFirstLine = true;
+
                 while ((line = input.readLine()) != null) {
-                    if (!line.isEmpty() && !line.startsWith("Name")) {
-                        gpuInfo = "그래픽 카드(GPU) : " + line.trim();
-                        System.out.println(gpuInfo);
+                    if (!line.isEmpty() && line.contains("Chipset Model")) {
+                        gpuInfo = "그래픽 카드(GPU) : " + line.split(":")[1].trim();
+                        System.out.println(gpuInfo); // GPU 정보 출력
                         break;
                     }
                 }
@@ -52,9 +52,8 @@ public class Method {
                 String line;
                 Process process = Runtime.getRuntime().exec("lspci | grep VGA");
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                boolean isFirstLine = true;
                 while ((line = input.readLine()) != null) {
-                    if (!line.isEmpty() && !line.startsWith("Name")) {
+                    if (!line.isEmpty()) {
                         gpuInfo = "그래픽 카드(GPU) : " + line.trim();
                         System.out.println(gpuInfo);
                         break;
@@ -78,7 +77,7 @@ public class Method {
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        cpuInfo = "그래픽 카드(GPU) : " + line.trim();
+                        cpuInfo = "프로세서(CPU) : " + line.trim();
                         System.out.println(cpuInfo);
                         break;
                     }
@@ -94,7 +93,7 @@ public class Method {
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        cpuInfo = "그래픽 카드(GPU) : " + line.trim();
+                        cpuInfo = "프로세서(CPU) : " + line.trim();
                         System.out.println(cpuInfo);
                         break;
                     }
@@ -111,7 +110,7 @@ public class Method {
                 while ((line = input.readLine()) != null) {
                     String[] parts = line.split(":");
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        cpuInfo = "그래픽 카드(GPU) : " + parts[1].trim();
+                        cpuInfo = "프로세서(CPU) : " + parts[1].trim();
                         System.out.println(cpuInfo);
                         break;
                     }
@@ -190,8 +189,7 @@ public class Method {
         StringBuilder diskInfoBuilder = new StringBuilder();
         if (os.contains("win")) {
             try {
-                String command = "wmic logicaldisk get size,freespace,caption";
-                Process process = Runtime.getRuntime().exec(command);
+                Process process = Runtime.getRuntime().exec("wmic logicaldisk get size,freespace,caption");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
                 System.out.println("파일시스템 | 남은 공간(GB) | 전체 크기(GB)");
@@ -219,33 +217,31 @@ public class Method {
             }
         } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("mac")) {
             try {
-                String command = "df -h";
-                Process process = Runtime.getRuntime().exec(command);
+                Process process = Runtime.getRuntime().exec("df -h");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String line;
-                System.out.println("파일시스템 | 남은 공간(GB) | 전체 크기(GB)");
-                diskInfoBuilder.append("파일시스템 | 남은 공간(GB) | 전체 크기(GB)\n");
+                System.out.println("파일시스템 | 남은 공간 | 전체 크기");
+                diskInfoBuilder.append("파일시스템 | 남은 공간 | 전체 크기\n");
                 while ((line = reader.readLine()) != null) {
                     if (line.isEmpty() || !line.contains("/")) {
-                        continue; // 필요 없는 줄은 건너뜁니다.
+                        continue;
                     }
                     String[] tokens = line.split("\\s+");
                     if (tokens.length >= 5) {
                         String caption = tokens[0];
-                        String sizeGB = tokens[1];
-                        String freeSpaceGB = tokens[3];
+                        String size = tokens[1];
+                        String freeSpace = tokens[3];
 
-                        System.out.format("%s | %.1fGB | %.1fGB%n", caption, freeSpaceGB, sizeGB);
-                        diskInfoBuilder.append(String.format("%s | %s | %s%n", caption, freeSpaceGB, sizeGB));
+                        System.out.format("%s | %s | %s%n", caption, freeSpace, size);
+                        diskInfoBuilder.append(String.format("%s | %s | %s%n", caption, freeSpace, size));
                     }
                 }
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            return "지원하지 않는 운영체제이거나 하드디스크가 존재하지 않습니다.";
         }
+
 
         return diskInfoBuilder.toString();
     }

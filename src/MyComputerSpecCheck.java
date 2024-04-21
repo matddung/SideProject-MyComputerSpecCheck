@@ -11,9 +11,9 @@ public class MyComputerSpecCheck implements Runnable {
 
     @Override
     public void run() {
-        JFrame frame = new JFrame("내 사양 확인하기");
+        JFrame frame = new JFrame("내 사양 확인");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 700);
+        frame.setSize(700, 413);
 
         JButton button = new JButton("사양 확인");
         String[] columnNames = {"항목", "정보"};
@@ -26,7 +26,7 @@ public class MyComputerSpecCheck implements Runnable {
         };
 
         JTable table = new JTable(data, columnNames);
-        table.setRowHeight(100);
+        table.setRowHeight(65);
         JScrollPane scrollPane = new JScrollPane(table);
 
         button.addActionListener(new ActionListener() {
@@ -40,7 +40,6 @@ public class MyComputerSpecCheck implements Runnable {
                 String RAM = method.getRAMInfo(os);
                 String Disk = method.getDiskInfo(os).replace("\n", "<br>");
 
-                // 테이블에 정보 업데이트
                 table.setValueAt("<html>" + os + "</html>", 0, 1);
                 table.setValueAt("<html>" + CPU + "</html>", 1, 1);
                 table.setValueAt("<html>" + GPU + "</html>", 2, 1);
