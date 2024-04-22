@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Method {
+public class GetComputerSpec {
     public String getOSInfo() {
         String os = System.getProperty("os.name").toLowerCase();
 

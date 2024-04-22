@@ -14,4 +14,4 @@
 ## Version Rules
 > spring framework boot version : 3.0.6
 >
-> java version : 17.0.9  
+> java version : 17.0.9
