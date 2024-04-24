@@ -185,64 +185,64 @@ public class GetComputerSpec {
         return ramInfo;
     }
 
-    public String getDiskInfo(String os) {
-        StringBuilder diskInfoBuilder = new StringBuilder();
-        if (os.contains("win")) {
-            try {
-                Process process = Runtime.getRuntime().exec("wmic logicaldisk get size,freespace,caption");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String line;
-                System.out.println("파일시스템 | 남은 공간(GB) | 전체 크기(GB)");
-                diskInfoBuilder.append("드라이브 | 남은 공간(GB) | 전체 크기(GB)\n");
-                while ((line = reader.readLine()) != null) {
-                    if (line.isEmpty() || line.startsWith("Caption")) {
-                        continue;
-                    }
-                    String[] tokens = line.split("\\s+");
-                    if (tokens.length >= 3) {
-                        String caption = tokens[0];
-                        long freeSpace = Long.parseLong(tokens[1].trim());
-                        long size = Long.parseLong(tokens[2].trim());
-
-                        double freeSpaceGB = freeSpace / (1024.0 * 1024.0 * 1024.0);
-                        double sizeGB = size / (1024.0 * 1024.0 * 1024.0);
-
-                        System.out.format("%s | %.1fGB | %.1fGB%n", caption, freeSpaceGB, sizeGB);
-                        diskInfoBuilder.append(String.format("%s | %.1fGB | %.1fGB%n", caption, freeSpaceGB, sizeGB));
-                    }
-                }
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("mac")) {
-            try {
-                Process process = Runtime.getRuntime().exec("df -h");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                String line;
-                System.out.println("파일시스템 | 남은 공간 | 전체 크기");
-                diskInfoBuilder.append("파일시스템 | 남은 공간 | 전체 크기\n");
-                while ((line = reader.readLine()) != null) {
-                    if (line.isEmpty() || !line.contains("/")) {
-                        continue;
-                    }
-                    String[] tokens = line.split("\\s+");
-                    if (tokens.length >= 5) {
-                        String caption = tokens[0];
-                        String size = tokens[1];
-                        String freeSpace = tokens[3];
-
-                        System.out.format("%s | %s | %s%n", caption, freeSpace, size);
-                        diskInfoBuilder.append(String.format("%s | %s | %s%n", caption, freeSpace, size));
-                    }
-                }
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        return diskInfoBuilder.toString();
-    }
+//    public String getDiskInfo(String os) {
+//        StringBuilder diskInfoBuilder = new StringBuilder();
+//        if (os.contains("win")) {
+//            try {
+//                Process process = Runtime.getRuntime().exec("wmic logicaldisk get size,freespace,caption");
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//                String line;
+//                System.out.println("파일시스템 | 남은 공간(GB) | 전체 크기(GB)");
+//                diskInfoBuilder.append("드라이브 | 남은 공간(GB) | 전체 크기(GB)\n");
+//                while ((line = reader.readLine()) != null) {
+//                    if (line.isEmpty() || line.startsWith("Caption")) {
+//                        continue;
+//                    }
+//                    String[] tokens = line.split("\\s+");
+//                    if (tokens.length >= 3) {
+//                        String caption = tokens[0];
+//                        long freeSpace = Long.parseLong(tokens[1].trim());
+//                        long size = Long.parseLong(tokens[2].trim());
+//
+//                        double freeSpaceGB = freeSpace / (1024.0 * 1024.0 * 1024.0);
+//                        double sizeGB = size / (1024.0 * 1024.0 * 1024.0);
+//
+//                        System.out.format("%s | %.1fGB | %.1fGB%n", caption, freeSpaceGB, sizeGB);
+//                        diskInfoBuilder.append(String.format("%s | %.1fGB | %.1fGB%n", caption, freeSpaceGB, sizeGB));
+//                    }
+//                }
+//                reader.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("mac")) {
+//            try {
+//                Process process = Runtime.getRuntime().exec("df -h");
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//                String line;
+//                System.out.println("파일시스템 | 남은 공간 | 전체 크기");
+//                diskInfoBuilder.append("파일시스템 | 남은 공간 | 전체 크기\n");
+//                while ((line = reader.readLine()) != null) {
+//                    if (line.isEmpty() || !line.contains("/")) {
+//                        continue;
+//                    }
+//                    String[] tokens = line.split("\\s+");
+//                    if (tokens.length >= 5) {
+//                        String caption = tokens[0];
+//                        String size = tokens[1];
+//                        String freeSpace = tokens[3];
+//
+//                        System.out.format("%s  %s  %s%n", caption, freeSpace, size);
+//                        diskInfoBuilder.append(String.format("%s  %s  %s%n", caption, freeSpace, size));
+//                    }
+//                }
+//                reader.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//        return diskInfoBuilder.toString();
+//    }
 }
