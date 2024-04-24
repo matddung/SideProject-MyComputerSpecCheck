@@ -85,6 +85,7 @@ public class LoginFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (authenticate(id.getText(), new String(pw.getPassword()))) {
+                        MemberSession.createInstance(id.getText());
                         JOptionPane.showMessageDialog(LoginFrame.this, "로그인 성공!");
                         System.out.println("로그인 성공");
                         SwingUtilities.invokeLater(new MainFrame());

@@ -10,8 +10,14 @@
 > Java 표준 API만을 사용해서는 시스템 정보를 직접적으로 확인하는 것이 어렵다. 
 > 
 > Runtime.exec() 메소드를 사용하여 운영 체제의 명령어를 실행하고, 그 결과를 가져올 수 있다.
+> 
+>> ### 2024. 04. 24
+> 웹 서버와 통신하여 데스크톱 애플리케이션에서 추출한 정보를 서버에 전송하여 DB에서 업데이트
 *****
 ## Version Rules
 > java version : 17.0.9 
 > mariadb.jdbc.java.client
 > springframework.security.spring.core
+> io.jsonwebtoken.jjwt.api : 0.11.2
+> > io.jsonwebtoken.jjwt.impl : 0.11.2
+> > io.jsonwebtoken.jjwt.jackson : 0.11.2

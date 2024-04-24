@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Member;
 
 public class MainFrame implements Runnable{
     @Override
@@ -33,7 +34,15 @@ public class MainFrame implements Runnable{
                 String CPUInfo = getComputerSpec.getCPUInfo(OSInfo);
                 String RAMInfo = getComputerSpec.getRAMInfo(OSInfo);
 
-                DataSender.sendData("test2", OSInfo, GPUInfo, CPUInfo, RAMInfo);
+                MemberSession session = MemberSession.getInstance();
+
+                if (session != null) {
+                    System.out.println("현재 로그인한 사용자: " + session.getAccount());
+                } else {
+                    System.out.println("로그인한 사용자가 없습니다.");
+                }
+
+                DataSender.sendData(session.getAccount(), OSInfo, GPUInfo, CPUInfo, RAMInfo);
 
                 table.setValueAt("<html>" + OSInfo + "</html>", 0, 1);
                 table.setValueAt("<html>" + GPUInfo + "</html>", 1, 1);
