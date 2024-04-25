@@ -6,7 +6,7 @@ public class GetComputerSpec {
     public String getOSInfo() {
         String os = System.getProperty("os.name").toLowerCase();
 
-        System.out.println("운영 체제 : " + os);
+        System.out.println(os);
 
         return os;
     }
@@ -20,7 +20,7 @@ public class GetComputerSpec {
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        gpuInfo = "그래픽 카드(GPU) : " + line.trim();
+                        gpuInfo = line.trim();
                         System.out.println(gpuInfo);
                         break;
                     }
@@ -38,7 +38,7 @@ public class GetComputerSpec {
 
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty() && line.contains("Chipset Model")) {
-                        gpuInfo = "그래픽 카드(GPU) : " + line.split(":")[1].trim();
+                        gpuInfo = line.split(":")[1].trim();
                         System.out.println(gpuInfo); // GPU 정보 출력
                         break;
                     }
@@ -54,7 +54,7 @@ public class GetComputerSpec {
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty()) {
-                        gpuInfo = "그래픽 카드(GPU) : " + line.trim();
+                        gpuInfo = line.trim();
                         System.out.println(gpuInfo);
                         break;
                     }
@@ -77,7 +77,7 @@ public class GetComputerSpec {
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        cpuInfo = "프로세서(CPU) : " + line.trim();
+                        cpuInfo = line.trim();
                         System.out.println(cpuInfo);
                         break;
                     }
@@ -93,7 +93,7 @@ public class GetComputerSpec {
                 BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 while ((line = input.readLine()) != null) {
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        cpuInfo = "프로세서(CPU) : " + line.trim();
+                        cpuInfo = line.trim();
                         System.out.println(cpuInfo);
                         break;
                     }
@@ -110,7 +110,7 @@ public class GetComputerSpec {
                 while ((line = input.readLine()) != null) {
                     String[] parts = line.split(":");
                     if (!line.isEmpty() && !line.startsWith("Name")) {
-                        cpuInfo = "프로세서(CPU) : " + parts[1].trim();
+                        cpuInfo = parts[1].trim();
                         System.out.println(cpuInfo);
                         break;
                     }
@@ -135,7 +135,7 @@ public class GetComputerSpec {
                     if (!line.isEmpty() && !line.startsWith("TotalPhysicalMemory")) {
                         double memoryBytes = Double.parseDouble(line.trim());
                         double memoryGB = memoryBytes / (1024 * 1024 * 1024);
-                        ramInfo = String.format("메모리(RAM) : %.1f GB", memoryGB);
+                        ramInfo = String.format("%.1f GB", memoryGB);
                         System.out.println(ramInfo);
                         break;
                     }
@@ -154,7 +154,7 @@ public class GetComputerSpec {
                     if (parts.length > 1) {
                         double memoryBytes = Double.parseDouble(parts[1].trim());
                         double memoryGB = memoryBytes / (1024 * 1024 * 1024);
-                        ramInfo = String.format("메모리(RAM) : %.1f GB", memoryGB);
+                        ramInfo = String.format("%.1f GB", memoryGB);
                         System.out.println(ramInfo);
                     }
                 }
@@ -172,7 +172,7 @@ public class GetComputerSpec {
                     if (parts.length > 1) {
                         double memoryMB = Double.parseDouble(parts[1].trim());
                         double memoryGB = memoryMB / 1024;
-                        ramInfo = String.format("메모리(RAM) : %.1f GB", memoryGB);
+                        ramInfo = String.format("%.1f GB", memoryGB);
                         System.out.println(ramInfo);
                     }
                 }
